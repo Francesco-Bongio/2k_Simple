@@ -2,12 +2,12 @@
 # Variables
 ###############################################################################
 CC          = gcc
-CFLAGS      = $(shell pkg-config --cflags igraph glib-2.0)
+CFLAGS      = $(shell pkg-config --cflags igraph glib-2.0) -I/usr/include/igraph -I/usr/include/x86_64-linux-gnu
 LDLIBS      = $(shell pkg-config --libs igraph glib-2.0)
 INSTALL_DIR = /usr/local/bin
 
 # Executables to build
-BINARIES    = compare_jdm random_jdm funziona ibrido
+BINARIES    = compare_jdm random_jdm ibrido
 
 ###############################################################################
 # Phony Targets
@@ -32,17 +32,10 @@ random_jdm: random_jdm.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 ###############################################################################
-# Build funziona
-# (this one has its own compile command per your requirement)
-###############################################################################
-funziona: funziona.c
-	gcc -O2 -o funziona funziona.c `pkg-config --cflags --libs igraph glib-2.0` -lm
-
-###############################################################################
 # Build ibrido (ex joint_model_ottimizzato)
 ###############################################################################
 ibrido: ibrido.c
-	gcc -O3 -o ibrido ibrido.c `pkg-config --cflags --libs glib-2.0` -lm
+	$(CC) -O3 -o $@ $^ $(CFLAGS) $(LDLIBS) -lm
 
 ###############################################################################
 # Debug build (re-build everything with debug flags)
@@ -103,4 +96,3 @@ help:
 	@echo "  dist       - Create a tarball (2k_simple.tar.gz)"
 	@echo "  clean      - Remove build artifacts"
 	@echo "  help       - Show this help message"
-
