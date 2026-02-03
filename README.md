@@ -122,5 +122,5 @@ Removes executables and temporary files.
 ---
 
 ## Author
-This project was developed in the context of research or a thesis related to joint degree matrix graph generation.
+This project was developed in the context of research for a thesis related to joint degree matrix graph generation.
 
